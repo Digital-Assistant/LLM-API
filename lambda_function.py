@@ -16,8 +16,8 @@ bedrock_runtime = boto3.client(
 )
 
 #modelId = "anthropic.claude-3-opus-20240229-v1:0"
-modelId = "anthropic.claude-3-5-sonnet-20240620-v1:0"
-#modelId = "anthropic.claude-3-5-haiku-20241022-v1:0"
+modelIdNonTrivial = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+modelIdTrivial = "anthropic.claude-3-5-haiku-20241022-v1:0"
 #modelId = "anthropic.claude-3-haiku-20240307-v1:0"
 
 def getRankedList(ust,list_of_recordings):
@@ -62,7 +62,7 @@ def getRankedList(ust,list_of_recordings):
     
     response = bedrock_runtime.invoke_model(
         body=body,
-        modelId=modelId,
+        modelId=modelIdNonTrivial,
         accept='application/json',
         contentType='application/json'
     )
@@ -139,7 +139,7 @@ def getInputValuesWithBB(inputs, ust):
     
     response = bedrock_runtime.invoke_model(
         body=body,
-        modelId=modelId,
+        modelId=modelIdTrivial,
         accept='application/json',
         contentType='application/json'
     )
@@ -200,7 +200,7 @@ def getInputValuesWithoutBB(inputs, ust):
     # The call made to the model
     response = bedrock_runtime.invoke_model(
         body=body,
-        modelId=modelId,
+        modelId=modelIdTrivial,
         accept='application/json',
         contentType='application/json'
     )
