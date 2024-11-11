@@ -18,7 +18,7 @@ jobs:
       - name: zip
         uses: montudor/action-zip@v0.1.0
         with:
-          args: zip -qq -r ./bundle.zip ./dummy2
+          args: zip -qq -r ./bundle.zip ./lambda_function.py
       - name: default deploy
         uses: appleboy/lambda-action@master
         with:
