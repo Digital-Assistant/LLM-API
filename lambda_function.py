@@ -247,6 +247,13 @@ def simplifyJson(original_json_string):
 
     return simplified_json
 
+def rerankMatchedRecordingsBasedOnInputsFound(matched_recordings):
+    # Sort recordings based on number of found inputs (True values)
+    return sorted(matched_recordings, 
+                 key=lambda x: sum(1 for input_value in x['inputValues'] 
+                                 if input_value['found'] == 'True'),
+                 reverse=True)
+
 def lambda_handler(event, context):
     try:
         # Check if the body is in the event
@@ -336,6 +343,7 @@ def lambda_handler(event, context):
             '''
 
     #print(f"Matched Recordings: {matched_recordings}")
+    matched_recordings = rerankMatchedRecordingsBasedOnInputsFound(matched_recordings)
     response = getStitchedResponse(ust, matched_recordings)
     print ("Stitched response")
     print (response)
