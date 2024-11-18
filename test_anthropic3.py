@@ -15,7 +15,11 @@ class SimpleAnthropicClient:
             model: The model to use (defaults to claude-3-opus-20240229)
         """
         self.api_key = api_key
-        self.model = model
+        base = model.split("-v1:")[0]
+        if base.startswith("anthropic."):
+            self.model = base.replace("anthropic.", "")
+        else:
+            self.model = base
         self.http = urllib3.PoolManager()
         self.base_url = "https://api.anthropic.com/v1"
         
@@ -84,7 +88,7 @@ def lambda_handler(event, context):
     api_key = os.getenv("ANTHROPIC_API_KEY")
     
     # Initialize client
-    client = SimpleAnthropicClient(api_key)
+    client = SimpleAnthropicClient(api_key, "anthropic.claude-3-5-sonnet-20240620-v1:0")
     
     # Send a message
     try:
