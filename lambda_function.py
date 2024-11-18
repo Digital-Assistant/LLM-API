@@ -48,7 +48,7 @@ def getRankedList(ust,list_of_recordings):
         
     if USE_DIRECT_ANTHROPIC:
         # Initialize Anthropic client
-        client = test_anthropic3.SimpleAnthropicClient(os.getenv("ANTHROPIC_API_KEY"))
+        client = test_anthropic3.SimpleAnthropicClient(os.getenv("ANTHROPIC_API_KEY"), modelIdNonTrivial)
         response = client.create_message(content=prompt)
         answer = response["content"][0]["text"]
         return json.loads(answer)
@@ -121,7 +121,7 @@ def getInputValuesWithBB(inputs, ust):
     """
 
     if USE_DIRECT_ANTHROPIC:
-        client = test_anthropic3.SimpleAnthropicClient(os.getenv("ANTHROPIC_API_KEY"))
+        client = test_anthropic3.SimpleAnthropicClient(os.getenv("ANTHROPIC_API_KEY"), modelIdNonTrivial)
         response = client.create_message(content=prompt)
         answer = response["content"][0]["text"]
         return json.loads(answer)
@@ -170,7 +170,7 @@ def getInputValuesWithoutBB(inputs, ust):
     """
 
     if USE_DIRECT_ANTHROPIC:
-        client = test_anthropic3.SimpleAnthropicClient(os.getenv("ANTHROPIC_API_KEY"))
+        client = test_anthropic3.SimpleAnthropicClient(os.getenv("ANTHROPIC_API_KEY"), modelIdTrivial)
         response = client.create_message(content=prompt)
         answer = response["content"][0]["text"]
         return json.loads(answer)
